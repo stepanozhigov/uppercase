@@ -10,7 +10,14 @@ export default new Vuex.Store({
         locale: "en",
         ipLocation: null,
         geoLocation: null,
-        redirectTo: "http://uppercase.group/"
+        redirectTo: "http://uppercase.group/",
+        utm: {
+            utm_source: false,
+            utm_campaign: false,
+            utm_medium: false,
+            utm_content: false,
+            utm_term: false, 
+        }
     },
     getters: {
         isModal: state => state.modal,
@@ -18,7 +25,8 @@ export default new Vuex.Store({
         ipLocation: state => state.ipLocation,
         geoLocation: state => state.geoLocation,
         locale: state => state.locale,
-        redirectTo: state => state.redirectTo
+        redirectTo: state => state.redirectTo,
+        utm : state=>state.utm
     },
     mutations: {
         SET_MODAL: state => (state.modal = true),
@@ -28,9 +36,19 @@ export default new Vuex.Store({
         SET_IP_LOCATION: (state, ipLocation) => (state.ipLocation = ipLocation),
         SET_GEO_LOCATION: (state, geoLocation) =>
             (state.geoLocation = geoLocation),
-        SET_LOCALE: (state, locale) => (state.locale = locale)
+        SET_LOCALE: (state, locale) => (state.locale = locale),
+        SET_UTM: (state,payload) => {
+            state.utm.utm_source = payload.utm_source,
+            state.utm.utm_content = payload.utm_source,
+            state.utm.utm_campaign = payload.utm_campaign,
+            state.utm.utm_medium = payload.utm_medium,
+            state.utm.utm_term = payload.utm_term
+        }
     },
     actions: {
+        setUtm: (context,utm) => {
+            context.commit('SET_UTM',utm);
+        },
         setModal: context => context.commit("SET_MODAL"),
         unsetModal: context => context.commit("UNSET_MODAL"),
         setSuccess: context => context.commit("SET_SUCCESS"),

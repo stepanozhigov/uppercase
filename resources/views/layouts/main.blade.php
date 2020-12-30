@@ -15,8 +15,12 @@
 
 <body class="antialiased">
 
+    @php
+        //dd($utm);   
+    @endphp
+
     <div id="app">
-        <App />
+        <App environment="{{env('APP_ENV')}}" :utm="{{json_encode($utm)}}"/>
     </div>
 
     {{-- HERE Maps API --}}
